@@ -110,16 +110,22 @@ const DesignFlow: React.FC<DesignFlowProps> = ({ className }) => {
   ];
 
   return (
-    <section id="design-flow" className={cn("py-20 bg-kw-gray-100", className)}>
-      <div className="container mx-auto px-6 md:px-10">
-        <h2 className="font-playfair text-3xl md:text-4xl mb-8 text-center">Table Consultation & Design Flow</h2>
-        <p className="font-garamond text-xl text-center max-w-3xl mx-auto mb-16 italic">
+    <section id="design-flow" className={cn("py-20 relative overflow-hidden", className)}>
+      {/* Background pattern overlay */}
+      <div className="absolute inset-0 bg-[url('/wood-texture.jpg')] opacity-5 bg-repeat"></div>
+      
+      {/* Diagonal Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-kw-black/5 to-transparent"></div>
+      
+      <div className="container mx-auto px-6 md:px-10 relative z-10">
+        <h2 className="font-playfair text-3xl md:text-5xl mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-kw-black to-kw-gray-700 drop-shadow-sm">Table Consultation & Design Flow</h2>
+        <p className="font-garamond text-xl text-center max-w-3xl mx-auto mb-16 italic text-kw-black/90 drop-shadow-sm">
           "Our process flows like the grain of wood itself — natural, intentional, and revealing beauty with every step."
         </p>
         
         <div className="relative">
-          {/* Flowing connection line */}
-          <div className="absolute hidden md:block left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-kw-black to-transparent z-0"></div>
+          {/* Flowing connection line with animated gradient */}
+          <div className="absolute hidden md:block left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-kw-black via-kw-gray-600 to-transparent z-0"></div>
           
           <div className="space-y-16">
             {steps.map((step, index) => (
@@ -127,11 +133,12 @@ const DesignFlow: React.FC<DesignFlowProps> = ({ className }) => {
                 key={step.number} 
                 className={`relative z-10 flex flex-col md:flex-row items-center ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                } gap-8 md:gap-12`}
+                } gap-8 md:gap-12 animate-fade-in`}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Step number and connector */}
-                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-white border border-kw-gray-200 flex items-center justify-center shadow-md relative">
-                  <span className="font-montserrat text-2xl">{step.number}</span>
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-white border-2 border-kw-gray-300 flex items-center justify-center shadow-lg relative hover:scale-105 transition-transform duration-300">
+                  <span className="font-montserrat text-2xl font-bold text-kw-black">{step.number}</span>
                   
                   {/* Small connecting line to the main timeline */}
                   {index < steps.length - 1 && (
@@ -140,25 +147,27 @@ const DesignFlow: React.FC<DesignFlowProps> = ({ className }) => {
                 </div>
                 
                 {/* Content */}
-                <div className={`flex-1 bg-white p-6 border border-kw-gray-200 shadow-sm transition-all duration-300 hover:shadow-md ${
-                  index % 2 === 0 ? 'md:mr-0 md:ml-auto' : 'md:ml-0 md:mr-auto'
-                } md:max-w-xl`}>
+                <div 
+                  className={`flex-1 bg-white p-6 border border-kw-gray-200 shadow-md transition-all duration-300 hover:shadow-xl rounded-md backdrop-blur-sm bg-white/90 ${
+                    index % 2 === 0 ? 'md:mr-0 md:ml-auto' : 'md:ml-0 md:mr-auto'
+                  } md:max-w-xl`}
+                >
                   <Collapsible>
                     <div className="flex justify-between items-center">
-                      <h3 className="font-montserrat text-xl">{step.title}</h3>
+                      <h3 className="font-montserrat text-xl font-bold text-kw-black">{step.title}</h3>
                       <CollapsibleTrigger className="p-2 hover:bg-kw-gray-100 rounded-full transition-colors">
                         <ChevronDown className="h-5 w-5" />
                       </CollapsibleTrigger>
                     </div>
                     
-                    <p className="font-garamond text-lg mt-2 text-kw-gray-600">{step.description}</p>
+                    <p className="font-garamond text-lg mt-2 text-kw-gray-800">{step.description}</p>
                     
                     <CollapsibleContent>
                       <ul className="space-y-2 mt-4 font-garamond text-lg">
                         {step.items.map((item, idx) => (
-                          <li key={idx} className="flex items-start">
-                            <ArrowRight className="h-4 w-4 mt-1.5 mr-2 flex-shrink-0 text-kw-gray-600" />
-                            <span>{item}</span>
+                          <li key={idx} className="flex items-start group">
+                            <ArrowRight className="h-4 w-4 mt-1.5 mr-2 flex-shrink-0 text-kw-gray-600 group-hover:text-kw-black transition-colors" />
+                            <span className="group-hover:text-kw-black transition-colors">{item}</span>
                           </li>
                         ))}
                       </ul>

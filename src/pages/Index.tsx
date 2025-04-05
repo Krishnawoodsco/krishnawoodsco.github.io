@@ -10,7 +10,10 @@ import Footer from '@/components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
+      {/* Subtle grain texture overlay */}
+      <div className="fixed inset-0 bg-[url('/wood-texture.jpg')] opacity-[0.03] bg-repeat pointer-events-none animate-grain"></div>
+      
       <Navigation />
       <Hero />
       <BrandIdentity />

@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 const config = {
@@ -99,17 +98,34 @@ const config = {
           from: { opacity: "1" },
           to: { opacity: "0" }
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-5px)" }
+        },
+        "grain": {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "10%": { transform: "translate(-5%, -5%)" },
+          "30%": { transform: "translate(3%, -2%)" },
+          "50%": { transform: "translate(-2%, 4%)" },
+          "70%": { transform: "translate(5%, 2%)" },
+          "90%": { transform: "translate(-1%, 5%)" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.4s ease-out",
+        "float": "float 6s ease-in-out infinite",
+        "grain": "grain 8s steps(10) infinite"
       },
       fontFamily: {
         'playfair': ['"Playfair Display SC"', 'serif'],
         'garamond': ['"EB Garamond"', 'serif'],
         'montserrat': ['Montserrat', 'sans-serif'],
         'alice': ['Alice', 'serif'],
+      },
+      backgroundImage: {
+        'wood-pattern': "url('/wood-texture.jpg')",
       },
     },
   },
