@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 const config = {
@@ -127,9 +128,46 @@ const config = {
       backgroundImage: {
         'wood-pattern': "url('/wood-texture.jpg')",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '65ch',
+            color: 'inherit',
+            p: {
+              color: 'inherit',
+            },
+            strong: {
+              color: 'inherit',
+            },
+            a: {
+              color: 'inherit',
+              textDecoration: 'underline',
+              '&:hover': {
+                color: 'inherit',
+                opacity: 0.8,
+              },
+            },
+            h1: {
+              color: 'inherit',
+            },
+            h2: {
+              color: 'inherit',
+            },
+            h3: {
+              color: 'inherit',
+            },
+            h4: {
+              color: 'inherit',
+            },
+            blockquote: {
+              color: 'inherit',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
 
 export default config;

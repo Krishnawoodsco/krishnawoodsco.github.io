@@ -2,6 +2,7 @@
 import React from 'react';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
+import About from '@/components/About';
 import BrandIdentity from '@/components/BrandIdentity';
 import DesignFlow from '@/components/DesignFlow';
 import MaterialLibrary from '@/components/MaterialLibrary';
@@ -16,7 +17,7 @@ const Index = () => {
       
       <Navigation />
       <Hero />
-      <BrandIdentity />
+      <About />
       <DesignFlow />
       <MaterialLibrary />
       <Contact />
