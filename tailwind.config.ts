@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,12 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'playfair': ['"Playfair Display SC"', 'serif'],
+				'alice': ['Alice', 'serif'],
+				'garamond': ['EB Garamond', 'serif'],
+				'montserrat': ['Montserrat', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,7 +68,20 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				'kw-black': '#000000',
+				'kw-white': '#ffffff',
+				'kw-gray': {
+					100: '#f5f5f5',
+					200: '#eeeeee',
+					300: '#e0e0e0',
+					400: '#bdbdbd',
+					500: '#9e9e9e',
+					600: '#757575',
+					700: '#616161',
+					800: '#424242',
+					900: '#212121',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +104,20 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					from: {
+						opacity: '0'
+					},
+					to: {
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 1s ease-out'
 			}
 		}
 	},
