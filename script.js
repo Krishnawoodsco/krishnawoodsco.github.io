@@ -1,5 +1,15 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Check for saved theme preference or use device preference
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+  
   // Mobile menu toggle
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -7,19 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const xIcon = document.querySelector('.x-icon');
   const mobileLinks = document.querySelectorAll('.mobile-link');
   
-  menuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-    menuIcon.classList.toggle('hidden');
-    xIcon.classList.toggle('hidden');
-  });
-  
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      menuIcon.classList.remove('hidden');
-      xIcon.classList.add('hidden');
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      menuIcon.classList.toggle('hidden');
+      xIcon.classList.toggle('hidden');
     });
-  });
+    
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        xIcon.classList.add('hidden');
+      });
+    });
+  }
 
   // Process steps accordion
   const collapsibleTriggers = document.querySelectorAll('.collapsible-trigger');
@@ -32,15 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Material category toggle
-  function toggleCategory(id) {
+  window.toggleCategory = function(id) {
     const content = document.getElementById(id);
     if (content) {
       content.classList.toggle('hidden');
     }
-  }
-  
-  // Make toggleCategory available globally
-  window.toggleCategory = toggleCategory;
+  };
 
   // Carousel functionality
   const carousel = document.querySelector('.carousel-content');
@@ -73,15 +82,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 100,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
   // Contact form submission
   const contactForm = document.getElementById('contactForm');
   
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      // Typically you would send the form data to a server here
-      // For this static HTML version, we'll just simulate a successful submission
       
       // Get form data
       const name = document.getElementById('name').value;
@@ -99,9 +124,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Reveal animations on scroll
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+  
+  const revealOnScroll = () => {
+    revealElements.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      const elementVisible = 150;
+      
+      if (elementTop < window.innerHeight - elementVisible) {
+        element.classList.add('revealed');
+      }
+    });
+  };
+  
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll(); // Check on load
+
   // Current year in footer
   const yearElement = document.getElementById('currentYear');
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
+  }
+  
+  // Theme toggle functionality
+  const themeToggleBtn = document.getElementById('themeToggle');
+  
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
   }
 });

@@ -110,6 +110,18 @@ const config = {
           "50%": { transform: "translate(-2%, 4%)" },
           "70%": { transform: "translate(5%, 2%)" },
           "90%": { transform: "translate(-1%, 5%)" }
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "pulse-slow": {
+          "0%, 100%": { opacity: 1 },
+          "50%": { opacity: 0.8 },
+        },
+        "reveal": {
+          "0%": { transform: "translateY(20px)", opacity: 0 },
+          "100%": { transform: "translateY(0)", opacity: 1 },
         }
       },
       animation: {
@@ -117,7 +129,10 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.4s ease-out",
         "float": "float 6s ease-in-out infinite",
-        "grain": "grain 8s steps(10) infinite"
+        "grain": "grain 8s steps(10) infinite",
+        "shimmer": "shimmer 2s infinite linear",
+        "pulse-slow": "pulse-slow 3s infinite ease-in-out",
+        "reveal": "reveal 0.7s ease-out forwards",
       },
       fontFamily: {
         'playfair': ['"Playfair Display SC"', 'serif'],
@@ -164,6 +179,10 @@ const config = {
             },
           },
         },
+      },
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
       },
     },
   },
