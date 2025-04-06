@@ -1,123 +1,110 @@
 
-import React, { useState, useCallback, useEffect } from 'react';
-import { 
+import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious
+  CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
-import { Avatar } from '@/components/ui/avatar';
+import { Quote } from 'lucide-react';
 
-type Testimonial = {
-  id: number;
-  name: string;
-  role: string;
-  company: string;
-  image: string;
-  content: string;
-};
-
-const testimonials: Testimonial[] = [
+const testimonials = [
   {
     id: 1,
-    name: "Emma Johnson",
-    role: "Interior Designer",
-    company: "Modern Living",
-    image: "/placeholder.svg",
-    content: "Krishna Woods Co. transformed my design concepts into stunning reality. Their craftsmanship and attention to detail exceeded all expectations. My clients are absolutely thrilled with the results."
+    quote: "Krishna Woods created a table that feels like it's been in our family for generations, yet is distinctly modern. Remarkable craftsmanship.",
+    author: "Alexandra Miller",
+    position: "Interior Designer, London",
   },
   {
     id: 2,
-    name: "David Chen",
-    role: "Homeowner",
-    company: "",
-    image: "/placeholder.svg",
-    content: "The dining table created for our family is not just a piece of furniture but a work of art. Every guest compliments the exquisite craftsmanship and unique design. Worth every penny."
+    quote: "The attention to detail in their work is unparalleled. Our walnut dining table has become the centerpiece of our home.",
+    author: "James Harrington",
+    position: "Private Client, Edinburgh",
   },
   {
     id: 3,
-    name: "Sarah Williams",
-    role: "Creative Director",
-    company: "Artisan Spaces",
-    image: "/placeholder.svg",
-    content: "Working with Krishna Woods Co. has been a seamless experience. Their ability to turn abstract ideas into functional, beautiful pieces is remarkable. I highly recommend them for custom projects."
-  }
+    quote: "Working with Krishna Woods was effortless. They translated our vision into a stunning reality with meticulous precision.",
+    author: "Olivia Thompson",
+    position: "Architectural Firm Partner",
+  },
+  {
+    id: 4,
+    quote: "The quality of materials and craftsmanship at Krishna Woods Co. exceeds anything I've encountered in twenty years of design consulting.",
+    author: "Richard Bennett",
+    position: "Design Consultant",
+  },
 ];
 
 const TestimonialCarousel = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [emblaApi, setEmblaApi] = useState<any>(null);
-
-  // Fixed: This is the correct way to handle the onSelect callback with Embla Carousel
-  const handleSelect = useCallback(() => {
-    if (!emblaApi) return;
-    
-    // Use the selectedScrollSnap method from the Embla API object, not from the event
-    setActiveIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (emblaApi) {
-      // Set up the initial active index and event listeners
-      handleSelect();
-      emblaApi.on('select', handleSelect);
-      
-      // Clean up event listeners
-      return () => {
-        emblaApi.off('select', handleSelect);
-      };
-    }
-  }, [emblaApi, handleSelect]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto">
-      <Carousel 
-        opts={{
-          loop: true,
-          align: 'center',
-        }}
-        setApi={setEmblaApi}
-        className="w-full"
-      >
-        <CarouselContent>
-          {testimonials.map((testimonial) => (
-            <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3 pl-4">
-              <Card className="h-full bg-kw-cream/10 border border-kw-cream/20">
-                <CardContent className="p-6 flex flex-col h-full">
-                  <div className="mb-4 flex items-center">
-                    <Avatar className="h-10 w-10 mr-3">
-                      <img src={testimonial.image} alt={testimonial.name} />
-                    </Avatar>
-                    <div>
-                      <h4 className="font-montserrat font-medium text-kw-cream">{testimonial.name}</h4>
-                      <p className="text-sm text-kw-cream/70">{testimonial.role}{testimonial.company && `, ${testimonial.company}`}</p>
+    <section className="py-20 bg-kw-gray-100 dark:bg-kw-gray-900">
+      <div className="container mx-auto px-6 md:px-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <h2 className="font-playfair text-3xl md:text-4xl mb-16 text-center text-kw-black dark:text-kw-white">
+            Client Reflections
+          </h2>
+          
+          <div className="max-w-4xl mx-auto">
+            <Carousel
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+              className="w-full"
+              onSelect={(api) => setCurrentIndex(api.selectedScrollSnap())}
+            >
+              <CarouselContent>
+                {testimonials.map((testimonial) => (
+                  <CarouselItem key={testimonial.id} className="md:basis-full">
+                    <div className="p-4 md:p-6">
+                      <div className="bg-white dark:bg-kw-gray-800 p-8 md:p-12 rounded-lg shadow-lg">
+                        <Quote size={32} className="text-kw-gray-400 mb-4" />
+                        <p className="font-alice text-xl md:text-2xl mb-8 text-kw-gray-800 dark:text-kw-gray-200">
+                          "{testimonial.quote}"
+                        </p>
+                        <div>
+                          <p className="font-montserrat font-semibold text-kw-black dark:text-kw-white">
+                            {testimonial.author}
+                          </p>
+                          <p className="font-garamond text-kw-gray-600 dark:text-kw-gray-400">
+                            {testimonial.position}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <p className="font-garamond text-lg text-kw-cream/90 italic flex-grow">{testimonial.content}</p>
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="flex justify-center mt-6 gap-2">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => emblaApi?.scrollTo(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                activeIndex === index ? 'bg-kw-cream' : 'bg-kw-cream/30'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-        <CarouselPrevious className="left-2 lg:-left-12" />
-        <CarouselNext className="right-2 lg:-right-12" />
-      </Carousel>
-    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-8">
+                <CarouselPrevious className="relative static mr-2 translate-y-0 left-0" />
+                <div className="flex items-center gap-2 mx-4">
+                  {testimonials.map((_, index) => (
+                    <span
+                      key={index}
+                      className={`block h-2 w-2 rounded-full transition-all duration-300 ${
+                        index === currentIndex
+                          ? "w-8 bg-kw-black dark:bg-kw-white"
+                          : "bg-kw-gray-300 dark:bg-kw-gray-700"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <CarouselNext className="relative static ml-2 translate-y-0 right-0" />
+              </div>
+            </Carousel>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 };
 
