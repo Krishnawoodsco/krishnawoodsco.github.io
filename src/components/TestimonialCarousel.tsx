@@ -61,8 +61,9 @@ const TestimonialCarousel = () => {
               }}
               className="w-full"
               onSelect={(api) => {
-                const selectedIndex = api.selectedScrollSnap();
-                setCurrentIndex(selectedIndex);
+                if (api) {
+                  setCurrentIndex(api.selectedScrollSnap());
+                }
               }}
             >
               <CarouselContent>
