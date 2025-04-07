@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === "development";
 
   return {
-    base: "/krishnawoodsco.github.io/", // ✅ Correct for GitHub Pages
+    base: "/",
 
     server: {
       host: true, // allows LAN access (equivalent to "::")
