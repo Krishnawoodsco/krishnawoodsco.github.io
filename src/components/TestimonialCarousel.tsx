@@ -40,6 +40,15 @@ const testimonials = [
 
 const TestimonialCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [api, setApi] = useState<CarouselApi | null>(null);
+
+  React.useEffect(() => {
+    if (!api) return;
+    
+    api.on("select", () => {
+      setCurrentIndex(api.selectedScrollSnap());
+    });
+  }, [api]);
 
   return (
     <section className="py-20 bg-kw-gray-100 dark:bg-kw-gray-900">
@@ -61,11 +70,7 @@ const TestimonialCarousel = () => {
                 loop: true,
               }}
               className="w-full"
-              onSelect={(api: CarouselApi) => {
-                if (api) {
-                  setCurrentIndex(api.selectedScrollSnap());
-                }
-              }}
+              setApi={setApi}
             >
               <CarouselContent>
                 {testimonials.map((testimonial) => (
