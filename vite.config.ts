@@ -9,6 +9,10 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    headers: {
+      // Ensure proper MIME type handling
+      "Content-Type": "application/javascript"
+    }
   },
   base: "./", // Set to relative paths for GitHub Pages
   plugins: [
