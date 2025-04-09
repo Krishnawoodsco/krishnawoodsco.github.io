@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Carousel,
@@ -42,12 +42,21 @@ const TestimonialCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [api, setApi] = useState<CarouselApi | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api) return;
     
-    api.on("select", () => {
+    const onSelect = () => {
       setCurrentIndex(api.selectedScrollSnap());
-    });
+    };
+    
+    api.on("select", onSelect);
+    
+    // Initial selection
+    onSelect();
+    
+    return () => {
+      api.off("select", onSelect);
+    };
   }, [api]);
 
   return (
