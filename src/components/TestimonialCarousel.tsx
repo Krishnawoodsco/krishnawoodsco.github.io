@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Carousel,
@@ -7,6 +7,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Quote } from 'lucide-react';
 
@@ -60,7 +61,7 @@ const TestimonialCarousel = () => {
                 loop: true,
               }}
               className="w-full"
-              onSelect={(api) => {
+              onSelect={(api: CarouselApi) => {
                 if (api) {
                   setCurrentIndex(api.selectedScrollSnap());
                 }

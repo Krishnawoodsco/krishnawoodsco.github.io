@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: "/", // Use root path for GitHub Pages with custom domain
+  base: "./", // Set to relative paths for GitHub Pages
   plugins: [
     react(),
     mode === 'development' &&
@@ -25,13 +25,16 @@ export default defineConfig(({ mode }) => ({
     outDir: "dist",
     sourcemap: true,
     assetsDir: "assets",
-    // Make sure to generate a 404.html that redirects to index.html for SPA routing
     rollupOptions: {
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
           router: ['react-router-dom'],
-        }
+        },
+        // Ensure assets use relative paths
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]'
       }
     }
   },
