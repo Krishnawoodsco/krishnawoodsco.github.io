@@ -13,4 +13,6 @@ createRoot(rootElement).render(<App />);
 console.log("Application initialized", {
   environment: import.meta.env.MODE,
   baseUrl: import.meta.env.BASE_URL,
+  url: window.location.href,
+  pathname: window.location.pathname
 });
