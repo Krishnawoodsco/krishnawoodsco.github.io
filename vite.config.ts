@@ -9,12 +9,8 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    headers: {
-      // Ensure proper MIME type handling for JavaScript modules
-      "Content-Type": "application/javascript"
-    }
   },
-  base: "/", // Use root-relative paths instead of relative paths
+  base: "/", // Root-relative paths for GitHub Pages
   plugins: [
     react(),
     mode === 'development' &&
@@ -35,7 +31,6 @@ export default defineConfig(({ mode }) => ({
           react: ['react', 'react-dom'],
           router: ['react-router-dom'],
         },
-        // Ensure assets use correct paths
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]'
