@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: "/krishnawoodsco.github.io", // Base URL for GitHub Pages
+  base: "https://github.com/Krishnawoodsco/krishnawoodsco.github.io", // Base URL for GitHub Pages
   plugins: [
     react(),
     mode === 'development' &&
