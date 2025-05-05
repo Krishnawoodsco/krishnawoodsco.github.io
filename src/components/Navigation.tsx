@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
 import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
   className?: string;
@@ -10,25 +11,88 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ className }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Add background when scrolled down
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+      
+      // Detect active section
+      const sections = document.querySelectorAll('section[id]');
+      const scrollPosition = window.scrollY + 100;
+
+      sections.forEach(section => {
+        const sectionTop = (section as HTMLElement).offsetTop;
+        const sectionHeight = (section as HTMLElement).offsetHeight;
+        const sectionId = section.getAttribute('id') || '';
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          setActiveSection(sectionId);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 80,
+        behavior: 'smooth'
+      });
+      setIsMenuOpen(false);
+    }
+  };
+
+  const navLinks = [
+    { id: "hero", label: "HOME" },
+    { id: "about", label: "ABOUT" },
+    { id: "vision", label: "VISION" },
+    { id: "design-flow", label: "PROCESS" },
+    { id: "production-plan", label: "PRODUCTION" },
+    { id: "goals", label: "GOALS" },
+    { id: "material-library", label: "MATERIALS" },
+    { id: "expertise", label: "EXPERTISE" },
+    { id: "current-designs", label: "DESIGNS" },
+    { id: "csr", label: "CSR" },
+    { id: "contact", label: "CONTACT" },
+  ];
+
   return (
-    <nav className={cn("w-full py-6 px-6 md:px-10 bg-white dark:bg-kw-black", className)}>
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 py-4 px-6 md:px-10 transition-all duration-300",
+      scrolled ? "bg-white/90 dark:bg-kw-black/90 backdrop-blur-sm shadow-sm" : "bg-transparent",
+      className
+    )}>
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <Logo />
         
-        <div className="hidden md:flex space-x-6 font-montserrat text-sm tracking-wide">
-          <a href="#brand-identity" className="hover:text-kw-gray-600 transition-colors">BRAND</a>
-          <a href="#vision" className="hover:text-kw-gray-600 transition-colors">VISION</a>
-          <a href="#expertise" className="hover:text-kw-gray-600 transition-colors">EXPERTISE</a>
-          <a href="#design-flow" className="hover:text-kw-gray-600 transition-colors">PROCESS</a>
-          <a href="#material-library" className="hover:text-kw-gray-600 transition-colors">MATERIALS</a>
-          <a href="#csr" className="hover:text-kw-gray-600 transition-colors">CSR</a>
-          <a href="#about" className="hover:text-kw-gray-600 transition-colors">ABOUT</a>
-          <a href="#contact" className="hover:text-kw-gray-600 transition-colors">CONTACT</a>
+        <div className="hidden md:flex space-x-3 lg:space-x-6 font-montserrat text-xs lg:text-sm tracking-wide">
+          {navLinks.map((link) => (
+            <button 
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className={cn(
+                "hover:text-kw-gray-600 dark:hover:text-kw-gray-300 transition-colors py-1",
+                activeSection === link.id ? "border-b-2 border-kw-black dark:border-white" : ""
+              )}
+            >
+              {link.label}
+            </button>
+          ))}
         </div>
         
         {/* Mobile menu button */}
@@ -42,20 +106,28 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
       </div>
       
       {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-white z-50 pt-24 px-6">
-          <div className="flex flex-col space-y-6 items-center font-montserrat text-lg">
-            <a href="#brand-identity" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">BRAND</a>
-            <a href="#vision" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">VISION</a>
-            <a href="#expertise" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">EXPERTISE</a>
-            <a href="#design-flow" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">PROCESS</a>
-            <a href="#material-library" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">MATERIALS</a>
-            <a href="#csr" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">CSR</a>
-            <a href="#about" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">ABOUT</a>
-            <a href="#contact" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">CONTACT</a>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden fixed inset-0 bg-white/95 dark:bg-kw-black/95 z-50 pt-24 px-6 backdrop-blur-sm"
+          >
+            <div className="flex flex-col space-y-6 items-center font-montserrat text-lg">
+              {navLinks.map((link) => (
+                <button 
+                  key={link.id}
+                  onClick={() => scrollToSection(link.id)}
+                  className="hover:text-kw-gray-600 dark:hover:text-kw-gray-300 transition-colors"
+                >
+                  {link.label}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

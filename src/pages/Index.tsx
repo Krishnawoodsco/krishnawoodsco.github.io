@@ -18,6 +18,7 @@ import Expertise from '@/components/Expertise';
 import CurrentDesigns from '@/components/CurrentDesigns';
 import CallToAction from '@/components/CallToAction';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { ArrowUp } from 'lucide-react';
 
 const Index = () => {
   const { scrollYProgress } = useScroll();
@@ -26,6 +27,28 @@ const Index = () => {
     damping: 30,
     restDelta: 0.001
   });
+  
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 500) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
   
   return (
     <div className="min-h-screen bg-white dark:bg-kw-black relative">
@@ -44,21 +67,58 @@ const Index = () => {
       {/* Theme Toggle */}
       <ThemeToggle />
       
+      {/* Scroll to top button */}
+      <motion.button
+        onClick={scrollToTop}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showScrollTop ? 1 : 0 }}
+        className="fixed bottom-6 right-6 z-40 bg-kw-black dark:bg-white text-white dark:text-kw-black w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all"
+        aria-label="Scroll to top"
+      >
+        <ArrowUp size={20} />
+      </motion.button>
+      
       {/* Content */}
       <Navigation />
-      <Hero />
-      <About />
-      <Vision />
-      <DesignFlow />
-      <ProductionPlan />
-      <Goals />
-      <MaterialLibrary />
-      <Expertise />
-      <CurrentDesigns />
-      <CSR />
-      <TestimonialCarousel />
-      <Contact />
-      <CallToAction />
+      <section id="hero">
+        <Hero />
+      </section>
+      <section id="about">
+        <About />
+      </section>
+      <section id="vision">
+        <Vision />
+      </section>
+      <section id="design-flow">
+        <DesignFlow />
+      </section>
+      <section id="production-plan">
+        <ProductionPlan />
+      </section>
+      <section id="goals">
+        <Goals />
+      </section>
+      <section id="material-library">
+        <MaterialLibrary />
+      </section>
+      <section id="expertise">
+        <Expertise />
+      </section>
+      <section id="current-designs">
+        <CurrentDesigns />
+      </section>
+      <section id="csr">
+        <CSR />
+      </section>
+      <section id="testimonials">
+        <TestimonialCarousel />
+      </section>
+      <section id="contact">
+        <Contact />
+      </section>
+      <section id="call-to-action">
+        <CallToAction />
+      </section>
       <Footer />
     </div>
   );
