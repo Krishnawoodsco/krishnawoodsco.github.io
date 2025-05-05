@@ -34,20 +34,24 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
         
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
           setActiveSection(sectionId);
+          console.log("Active section:", sectionId); // Debug log
         }
       });
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check immediately on mount
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    console.log("Menu toggled:", !isMenuOpen); // Debug log
   };
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
+    console.log("Scrolling to section:", sectionId, section); // Debug log
     if (section) {
       window.scrollTo({
         top: section.offsetTop - 80,

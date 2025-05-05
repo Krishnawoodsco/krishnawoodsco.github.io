@@ -19,6 +19,7 @@ import CurrentDesigns from '@/components/CurrentDesigns';
 import CallToAction from '@/components/CallToAction';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { toast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const { scrollYProgress } = useScroll();
@@ -31,6 +32,12 @@ const Index = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
+    // Show a toast message when the page loads
+    toast({
+      title: "Welcome to Krishna Woods Co.",
+      description: "Scroll down to explore our vision and craftsmanship.",
+    });
+    
     const handleScroll = () => {
       if (window.scrollY > 500) {
         setShowScrollTop(true);
@@ -40,6 +47,7 @@ const Index = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    console.log("Index component mounted"); // Debug log
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

@@ -20,7 +20,7 @@ const CallToAction: React.FC<CallToActionProps> = ({ className }) => {
           viewport={{ once: true, margin: "-100px" }}
           className="max-w-4xl mx-auto text-center"
         >
-          <h2 className="font-playfair text-3xl md:text-4xl mb-6 border-b-4 border-white inline-block pb-2">Let's Make Something Timeless</h2>
+          <h2 className="font-playfair text-3xl md:text-4xl mb-6 border-b-4 border-white inline-block pb-2">Let's Create Something Extraordinary Together</h2>
           <p className="font-garamond text-xl mb-10">
             If you're ready to create a statement piece with a story—and bring a unique vision to life—book a consultation today. With Krishna Woods, you're not just commissioning a table. You're shaping a lasting impression.
           </p>
