@@ -74,7 +74,7 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
   return (
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-50 py-4 px-6 md:px-10 transition-all duration-300",
-      scrolled ? "bg-white/90 dark:bg-kw-black/90 backdrop-blur-sm shadow-sm" : "bg-transparent",
+      scrolled ? "bg-white/95 dark:bg-kw-black/95 backdrop-blur-sm shadow-md" : "bg-transparent",
       className
     )}>
       <div className="flex justify-between items-center max-w-7xl mx-auto">
@@ -87,7 +87,7 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
               onClick={() => scrollToSection(link.id)}
               className={cn(
                 "hover:text-kw-gray-600 dark:hover:text-kw-gray-300 transition-colors py-1",
-                activeSection === link.id ? "border-b-2 border-kw-black dark:border-white" : ""
+                activeSection === link.id ? "border-b-2 border-kw-black dark:border-white font-semibold" : ""
               )}
             >
               {link.label}
@@ -119,7 +119,10 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
                 <button 
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="hover:text-kw-gray-600 dark:hover:text-kw-gray-300 transition-colors"
+                  className={cn(
+                    "hover:text-kw-gray-600 dark:hover:text-kw-gray-300 transition-colors",
+                    activeSection === link.id ? "border-b-2 border-kw-black dark:border-white font-semibold" : ""
+                  )}
                 >
                   {link.label}
                 </button>

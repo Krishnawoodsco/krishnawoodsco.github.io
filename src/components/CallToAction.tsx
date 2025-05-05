@@ -20,14 +20,14 @@ const CallToAction: React.FC<CallToActionProps> = ({ className }) => {
           viewport={{ once: true, margin: "-100px" }}
           className="max-w-4xl mx-auto text-center"
         >
-          <h2 className="font-playfair text-3xl md:text-4xl mb-6">Let's Make Something Timeless</h2>
+          <h2 className="font-playfair text-3xl md:text-4xl mb-6 border-b-4 border-white inline-block pb-2">Let's Make Something Timeless</h2>
           <p className="font-garamond text-xl mb-10">
             If you're ready to create a statement piece with a story—and bring a unique vision to life—book a consultation today. With Krishna Woods, you're not just commissioning a table. You're shaping a lasting impression.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-6 mb-12">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button size="lg" className="bg-white text-kw-black hover:bg-white/90 font-montserrat text-base flex items-center gap-2 h-12 px-6">
+              <Button size="lg" className="bg-white text-kw-black hover:bg-white/90 font-montserrat text-base flex items-center gap-2 h-12 px-6 shadow-lg">
                 <Mail size={18} />
                 Request Design Consultation
               </Button>
@@ -41,7 +41,7 @@ const CallToAction: React.FC<CallToActionProps> = ({ className }) => {
             </motion.div>
           </div>
           
-          <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm border border-white/20">
+          <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm border border-white/20 shadow-xl">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
               <div>
                 <h3 className="font-montserrat text-sm tracking-wider mb-2 text-white/70">EMAIL</h3>
