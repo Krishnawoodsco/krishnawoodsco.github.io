@@ -10,6 +10,13 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Preloader from '@/components/Preloader';
 import ThemeToggle from '@/components/ThemeToggle';
+import Vision from '@/components/Vision';
+import ProductionPlan from '@/components/ProductionPlan';
+import Goals from '@/components/Goals';
+import CSR from '@/components/CSR';
+import Expertise from '@/components/Expertise';
+import CurrentDesigns from '@/components/CurrentDesigns';
+import CallToAction from '@/components/CallToAction';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
 const Index = () => {
@@ -41,10 +48,17 @@ const Index = () => {
       <Navigation />
       <Hero />
       <About />
+      <Vision />
       <DesignFlow />
+      <ProductionPlan />
+      <Goals />
       <MaterialLibrary />
+      <Expertise />
+      <CurrentDesigns />
+      <CSR />
       <TestimonialCarousel />
       <Contact />
+      <CallToAction />
       <Footer />
     </div>
   );

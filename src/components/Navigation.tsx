@@ -16,14 +16,18 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
   };
 
   return (
-    <nav className={cn("w-full py-6 px-6 md:px-10 bg-white", className)}>
+    <nav className={cn("w-full py-6 px-6 md:px-10 bg-white dark:bg-kw-black", className)}>
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <Logo />
         
-        <div className="hidden md:flex space-x-8 font-montserrat text-sm tracking-wide">
+        <div className="hidden md:flex space-x-6 font-montserrat text-sm tracking-wide">
           <a href="#brand-identity" className="hover:text-kw-gray-600 transition-colors">BRAND</a>
+          <a href="#vision" className="hover:text-kw-gray-600 transition-colors">VISION</a>
+          <a href="#expertise" className="hover:text-kw-gray-600 transition-colors">EXPERTISE</a>
           <a href="#design-flow" className="hover:text-kw-gray-600 transition-colors">PROCESS</a>
           <a href="#material-library" className="hover:text-kw-gray-600 transition-colors">MATERIALS</a>
+          <a href="#csr" className="hover:text-kw-gray-600 transition-colors">CSR</a>
+          <a href="#about" className="hover:text-kw-gray-600 transition-colors">ABOUT</a>
           <a href="#contact" className="hover:text-kw-gray-600 transition-colors">CONTACT</a>
         </div>
         
@@ -40,10 +44,14 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
       {/* Mobile menu */}
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 bg-white z-50 pt-24 px-6">
-          <div className="flex flex-col space-y-8 items-center font-montserrat text-lg">
+          <div className="flex flex-col space-y-6 items-center font-montserrat text-lg">
             <a href="#brand-identity" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">BRAND</a>
+            <a href="#vision" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">VISION</a>
+            <a href="#expertise" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">EXPERTISE</a>
             <a href="#design-flow" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">PROCESS</a>
             <a href="#material-library" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">MATERIALS</a>
+            <a href="#csr" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">CSR</a>
+            <a href="#about" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">ABOUT</a>
             <a href="#contact" onClick={toggleMenu} className="hover:text-kw-gray-600 transition-colors">CONTACT</a>
           </div>
         </div>
