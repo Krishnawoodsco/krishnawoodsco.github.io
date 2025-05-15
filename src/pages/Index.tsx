@@ -32,7 +32,8 @@ const Index = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
-    // Show a toast message when the page loads
+    // Show a welcome toast message when the page loads
+    // This will verify our code changes are working
     toast({
       title: "Welcome to Krishna Woods Co.",
       description: "Scroll down to explore our vision and craftsmanship.",
@@ -47,7 +48,7 @@ const Index = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    console.log("Index component mounted"); // Debug log
+    console.log("Index component mounted - fe2kkkr checking"); // Added fe2kkkr for checking
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
