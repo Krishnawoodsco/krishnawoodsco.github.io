@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   // ✅ IMPORTANT: Set base path to match your GitHub repo name
-  base: "/krishnawoodsco.github.io/",
+  base: "/",
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
