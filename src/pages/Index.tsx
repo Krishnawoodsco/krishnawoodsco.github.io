@@ -13,7 +13,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 import Vision from '@/components/Vision';
 import ProductionPlan from '@/components/ProductionPlan';
 import Goals from '@/components/Goals';
-import CSR from './components/CSR';
+import CSR from "@/components/CSR";
 import Expertise from '@/components/Expertise';
 import CurrentDesigns from '@/components/CurrentDesigns';
 import CallToAction from '@/components/CallToAction';

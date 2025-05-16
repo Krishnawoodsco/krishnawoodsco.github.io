@@ -84,7 +84,7 @@ const MaterialLibrary: React.FC<MaterialLibraryProps> = ({ className }) => {
   return (
     <section id="material-library" className={cn("py-20 bg-white overflow-hidden", className)}>
       <div className="container mx-auto px-6 md:px-10">
-        <h2 className="font-playfair text-3xl md:text-4xl mb-6 text-center">Material Library</h2>
+        <h2 className="font-playfair text-3xl md:text-4xl mb-6 text-center">Material Library 2</h2>
         <p className="font-garamond text-xl text-center max-w-3xl mx-auto mb-16 italic">
           "The vocabulary of our craft — each material carefully selected to tell a unique story."
         </p>
