@@ -8,7 +8,8 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: "/", // ✅ Correct base for GitHub Pages user site
+  // ✅ IMPORTANT: Set base path to match your GitHub repo name
+  base: "/krishnawoodsco.github.io/",
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -30,9 +31,8 @@ export default defineConfig(({ mode }) => ({
         },
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
-      }
-    }
+        assetFileNames: 'assets/[name].[hash].[ext]',
+      },
+    },
   },
 }));
-
